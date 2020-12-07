@@ -36,7 +36,7 @@ public class Main7 {
         var entries1 = rules.stream().flatMap(x -> x.contents.keySet().stream().map(v -> new Entry1(x, v)))
                 .collect(groupingBy(x -> x.content, mapping(x -> x.rule, toList())));
 
-        var rules1 = new HashSet<>();
+        var rules1 = new HashSet<Rule>();
         var toProcess1 = new ArrayDeque<>(entries1.getOrDefault("shiny gold", new ArrayList<>()));
         while (!toProcess1.isEmpty()) {
             Rule x = toProcess1.pop();
