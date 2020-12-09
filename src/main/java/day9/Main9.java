@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.longs.*;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.*;
 
 public class Main9 {
     public static void main(String[] args) throws IOException {
@@ -24,11 +25,7 @@ public class Main9 {
                 }
             }
             if (i - nPrevious >= 0) {
-                long toRemove = input[i - nPrevious];
-                previousCounts.compute(toRemove, (n, count) -> count - 1);
-                if (previousCounts.get(toRemove) <= 0) {
-                    previousCounts.remove(toRemove);
-                }
+                previousCounts.compute(input[i - nPrevious], (n, count) -> count <= 1 ? null : count - 1);
             }
             previousCounts.compute(newNum, (n, count) -> count == null ? 1 : count + 1);
         }
@@ -43,12 +40,8 @@ public class Main9 {
                 start++;
             }
             if (total == part1 && i - start >= 2) {
-                long min = Long.MAX_VALUE;
-                long max = Long.MIN_VALUE;
-                for (int j = start; j < i; j++) {
-                    min = Math.min(min, input[j]);
-                    max = Math.max(max, input[j]);
-                }
+                long min = Arrays.stream(input, start, i + 1).min().orElseThrow();
+                long max = Arrays.stream(input, start, i + 1).max().orElseThrow();
                 System.out.println(min + max);
                 break;
             }
