@@ -33,10 +33,8 @@ public class Main13 {
                 if (m != 0) {
                     continue search;
                 }
-                if (j > stepIdx) {
-                    stepIdx = j;
-                    step *= entries[j].id;
-                }
+                stepIdx = j;
+                step *= entries[j].id;
             }
             System.out.println(time);
             break;
