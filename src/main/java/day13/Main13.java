@@ -8,6 +8,7 @@ import java.util.stream.*;
 public class Main13 {
     public static void main(String[] args) throws IOException {
         var in = Files.readAllLines(Paths.get("in13.txt")).toArray(String[]::new);
+
         var minTime = Long.parseLong(in[0]);
         record Entry(long id, long time) {
         }
@@ -22,12 +23,12 @@ public class Main13 {
 
         long time = -1;
         long step = 1;
-        long stepIdx = -1;
+        int stepIdx = -1;
 
         search:
         while (true) {
             time += step;
-            for (int j = 0; j < entries.length; j++) {
+            for (int j = stepIdx + 1; j < entries.length; j++) {
                 long m = (time + entries[j].offset) % entries[j].id;
                 if (m != 0) {
                     continue search;
