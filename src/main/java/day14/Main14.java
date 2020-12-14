@@ -3,7 +3,6 @@ package day14;
 import it.unimi.dsi.fastutil.longs.*;
 
 import java.io.*;
-import java.math.*;
 import java.nio.file.*;
 import java.util.*;
 
@@ -11,13 +10,13 @@ public class Main14 {
     public static void main(String[] args) throws IOException {
         var in = Files.readAllLines(Paths.get("in14.txt")).toArray(String[]::new);
 
-        var cpu = new CpuV1(1024 * 1024);
+        var cpu = new CpuV1(1024 * 128);
         runCode(in, cpu);
         System.out.println(Arrays.stream(cpu.memory).sum());
 
         var cpu2 = new CpuV2();
         runCode(in, cpu2);
-        System.out.println(cpu2.memory.values().stream().map(BigInteger::valueOf).reduce(BigInteger.ZERO, BigInteger::add));
+        System.out.println(cpu2.memory.values().stream().mapToLong(x -> x).sum());
     }
 
     private static void runCode(String[] in, Cpu cpu) {
@@ -52,7 +51,7 @@ public class Main14 {
     }
 
     static class CpuV2 implements Cpu {
-        private final Long2LongOpenHashMap memory = new Long2LongOpenHashMap(1024 * 1024);
+        private final Long2LongOpenHashMap memory = new Long2LongOpenHashMap();
 
         long maskOr;
         long maskAnd;
