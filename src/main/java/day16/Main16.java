@@ -60,7 +60,7 @@ public class Main16 {
                         }
                     }
                 }
-                if (possibleMatches.stream().count() == 1) {
+                if (possibleMatches.cardinality() == 1) {
                     fieldIds.put(field, possibleMatches.nextSetBit(0));
                 }
             }
